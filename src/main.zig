@@ -2,7 +2,7 @@ const std = @import("std");
 const Interpreter = @import("interpreter.zig").Interpreter;
 
 pub fn main() !void {
-    const str_bytecode = "001040";
+    const str_bytecode = "620101016201010101";
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     var ac = arena.allocator();
     defer _ = arena.deinit();
@@ -17,6 +17,8 @@ pub fn main() !void {
     defer interp.deinit();
 
     try interp.run();
+    const last_value = try interp.stack.pop();
+    std.debug.print("Last value: {}\n", .{last_value});
 }
 
 test "simple test" {
